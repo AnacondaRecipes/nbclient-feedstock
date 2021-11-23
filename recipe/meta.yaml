@@ -11,14 +11,18 @@ source:
   sha256: ed7d18431393750d29a64da432e0b7889274eb5a5056682be5691b1b1dc8f755
 
 build:
+  skip: True  # [py<36]
   number: {{ build }}
   script: {{ PYTHON }} -m pip install . -vv
   noarch: python
 
 requirements:
   host:
-    - python >=3.6
+    - python
     - pip
+    - wheel >=0.31.0
+    - setuptools >=38.6.0
+    - twine >=1.11.0
   run:
     - python >=3.6
     - traitlets >=4.2
@@ -28,8 +32,13 @@ requirements:
     - nest-asyncio
 
 test:
+  commands:
+    - pip check
   imports:
     - nbclient
+  requires:
+    - pip
+    - python <3.10
 
 about:
   home: https://jupyter.org
