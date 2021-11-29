@@ -10,8 +10,9 @@ source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: ed7d18431393750d29a64da432e0b7889274eb5a5056682be5691b1b1dc8f755
 
-build:
-  skip: True  # [py<36]
+build:i
+  # skip s390x build due to missing libuuid version= >=1.0.3,<2.0a0
+  skip: True  # [py<36 or s390x]
   number: {{ build }}
   script: {{ PYTHON }} -m pip install . -vv
   noarch: python
@@ -20,9 +21,9 @@ requirements:
   host:
     - python
     - pip
-    - wheel
-    - setuptools
-    - twine
+    - wheel >=0.31.0
+    - setuptools >=38.6.0
+    - twine >1.11.0
   run:
     - python >=3.6
     - traitlets >=4.2
