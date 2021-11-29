@@ -22,7 +22,7 @@ requirements:
     - pip
     - wheel
     - setuptools
-    - twine >=1.11.0
+    - twine
   run:
     - python >=3.6
     - traitlets >=4.2
