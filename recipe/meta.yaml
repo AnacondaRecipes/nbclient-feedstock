@@ -1,5 +1,5 @@
 {% set name = "nbclient" %}
-{% set version = "0.5.3" %}
+{% set version = "0.5.5" %}
 {% set build = 0 %}
 
 package:
@@ -8,17 +8,22 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: db17271330c68c8c88d46d72349e24c147bb6f34ec82d8481a8f025c4d26589c
+  sha256: ed7d18431393750d29a64da432e0b7889274eb5a5056682be5691b1b1dc8f755
 
-build:
+build:i
+  # skip s390x build due to missing libuuid version= >=1.0.3,<2.0a0
+  skip: True  # [py<36 or s390x]
   number: {{ build }}
   script: {{ PYTHON }} -m pip install . -vv
   noarch: python
 
 requirements:
   host:
-    - python >=3.6
+    - python
     - pip
+    - wheel
+    - setuptools
+    - twine >1.11.0
   run:
     - python >=3.6
     - traitlets >=4.2
@@ -28,8 +33,13 @@ requirements:
     - nest-asyncio
 
 test:
+  commands:
+    - pip check
   imports:
     - nbclient
+  requires:
+    - pip
+    - python <3.10
 
 about:
   home: https://jupyter.org
