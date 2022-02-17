@@ -3,7 +3,7 @@
 {% set build = 0 %}
 
 package:
-  name: {{ name }}
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
@@ -12,24 +12,32 @@ source:
 
 build:
   number: {{ build }}
-  script: {{ PYTHON }} -m pip install . -vv
   noarch: python
+  script: {{ PYTHON }} -m pip install . -vv
+  entry_points:
+    - jupyter-execute = nbclient.cli:main
 
 requirements:
   host:
-    - python >=3.6
+    - python
     - pip
+    - setuptools
+    - wheel
   run:
-    - python >=3.6
-    - traitlets >=4.2
+    - python >=3.7
     - jupyter_client >=6.1.5
     - nbformat >=5.0
-    - async_generator
     - nest-asyncio
+    - traitlets >=4.2
 
 test:
   imports:
     - nbclient
+  requires:
+    - pip
+  commands:
+    - pip check
+    - jupyter-execute --help
 
 about:
   home: https://jupyter.org
