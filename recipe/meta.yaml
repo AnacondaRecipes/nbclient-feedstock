@@ -1,18 +1,17 @@
 {% set name = "nbclient" %}
-{% set version = "0.5.13" %}
-{% set build = 0 %}
+{% set version = "0.8.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 40c52c9b5e3c31faecaee69f202b3f53e38d7c1c563de0fadde9d7eda0fdafe8
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/nbclient-{{ version }}.tar.gz
+  sha256: f9b179cd4b2d7bca965f900a2ebf0db4a12ebff2f36a711cb66861e4ae158e55
 
 build:
-  number: {{ build }}
-  script: {{ PYTHON }} -m pip install . -vv
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   entry_points:
     - jupyter-execute = nbclient.cli:main
 
@@ -20,14 +19,13 @@ requirements:
   host:
     - python
     - pip
-    - setuptools
-    - wheel
+    - hatchling
   run:
-    - python >=3.7
-    - jupyter_client >=6.1.5
-    - nbformat >=5.0
-    - nest-asyncio
-    - traitlets >=5.0.0
+    - python
+    - jupyter_client >=6.1.12
+    - jupyter_core >=4.12,!=5.0.*
+    - nbformat >=5.1
+    - traitlets >=5.4
 
 test:
   imports:
@@ -50,7 +48,6 @@ about:
     is to the jupyter protocol nbclient is to notebooks allowing for execution contexts to be run.
   dev_url: https://github.com/jupyter/nbclient
   doc_url: https://nbclient.readthedocs.io
-  doc_source_url: https://github.com/jupyter/nbclient/tree/master/docs
 
 extra:
   recipe-maintainers:
