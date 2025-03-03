@@ -1,5 +1,5 @@
 {% set name = "nbclient" %}
-{% set version = "0.8.0" %}
+{% set version = "0.10.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/nbclient-{{ version }}.tar.gz
-  sha256: f9b179cd4b2d7bca965f900a2ebf0db4a12ebff2f36a711cb66861e4ae158e55
+  sha256: 90b7fc6b810630db87a6d0c2250b1f0ab4cf4d3c27a299b0cde78a4ed3fd9193
 
 build:
   number: 0
@@ -19,7 +19,7 @@ requirements:
   host:
     - python
     - pip
-    - hatchling
+    - hatchling >=1.10.0
   run:
     - python
     - jupyter_client >=6.1.12
