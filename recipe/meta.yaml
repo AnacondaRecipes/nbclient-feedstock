@@ -14,7 +14,7 @@ build:
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   entry_points:
     - jupyter-execute = nbclient.cli:main
-  skip: true  # [py<3100]
+  skip: true  # [py<310]
 
 requirements:
   host:
