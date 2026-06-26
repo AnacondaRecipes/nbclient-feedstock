@@ -2,7 +2,7 @@
 {% set version = "0.11.0" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
@@ -14,7 +14,7 @@ build:
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   entry_points:
     - jupyter-execute = nbclient.cli:main
-  skip: true  # [py<3100]
+  skip: true  # [py<310]
 
 requirements:
   host:
@@ -29,12 +29,23 @@ requirements:
     - traitlets >=5.13
 
 test:
+  source_files:
+  - tests
   imports:
     - nbclient
   requires:
     - pip
+    - pytest
+    - ipykernel>=6.19.3
+    - ipython
+    - ipywidgets
+    - nbconvert >=7.1.0
+    - pytest-asyncio >=1.3.0
+    - xmltodict
+    - testpath
   commands:
     - pip check
+    - pytest -vv tests
     - jupyter-execute --help
 
 about:
